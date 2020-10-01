@@ -43,14 +43,18 @@ namespace SnakeAndLadderSimulator
                 int numberOnDie = rollTheDie();
                 count++;
                 int toAdd = newPosition(numberOnDie);
-                nextPosition = currentPosition + toAdd;
+                //checking if next position will exceed 100
+                if (currentPosition + toAdd > 100)
+                    nextPosition = currentPosition;
+                else
+                    nextPosition = currentPosition + toAdd;
                 //checking if player has moved below position 0
                 if (nextPosition < 0)
                     currentPosition = 0;
                 else
                     currentPosition = nextPosition;
             }
-            Console.WriteLine("Number on Die rolled = " + count);
+            Console.WriteLine("Number Of Total Die Rolls = " + count);
             Console.WriteLine("Final Position of Player = " + currentPosition);
         }
     }
