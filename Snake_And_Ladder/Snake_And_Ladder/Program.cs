@@ -6,6 +6,8 @@ namespace SnakeAndLadderSimulator
         public const int NoPlay = 0;
         public const int Ladder = 1;
         public const int Snake = 2;
+        public const int WinPosition = 100;
+        public const int StartPosition = 0;
         //Returns Output Of Die Roll
         public static int rollTheDie()
         {
@@ -38,7 +40,7 @@ namespace SnakeAndLadderSimulator
             Console.WriteLine("Welcome to the Snake and Ladder Problem!");
             int currentPosition = 0, nextPosition;
             int count = 0;
-            while (currentPosition < 100)
+            while (currentPosition < StartPosition)
             {
                 int numberOnDie = rollTheDie();
                 count++;
