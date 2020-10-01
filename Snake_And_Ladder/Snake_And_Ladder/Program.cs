@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Runtime.Intrinsics.X86;
+
 namespace SnakeAndLadderSimulator
 {
     class Program
@@ -6,6 +8,8 @@ namespace SnakeAndLadderSimulator
         public const int NoPlay = 0;
         public const int Ladder = 1;
         public const int Snake = 2;
+        public const int WinPosition = 100;
+        public const int StartPosition = 0;
         //Returns Output Of Die Roll
         public static int rollTheDie()
         {
@@ -13,7 +17,7 @@ namespace SnakeAndLadderSimulator
             int numberOnDie = random.Next(1, 7);
             return numberOnDie;
         }
-        //Returns the forward or the backward movement of the player
+        //Returns Increment Or Decrement to be Made with Current Position
         public static int newPosition(int numberOnDie)
         {
             int toAdd = 0;
@@ -34,25 +38,24 @@ namespace SnakeAndLadderSimulator
         }
         static void Main(string[] args)
         {
-            //Welcome msg
-            Console.WriteLine("Welcome to the Snake and Ladder Problem!");
             int currentPosition = 0, nextPosition;
             int count = 0;
-            while (currentPosition < 100)
+            while (currentPosition < WinPosition)
             {
                 int numberOnDie = rollTheDie();
                 count++;
                 int toAdd = newPosition(numberOnDie);
                 //checking if next position will exceed 100
-                if (currentPosition + toAdd > 100)
+                if (currentPosition + toAdd > WinPosition)
                     nextPosition = currentPosition;
                 else
                     nextPosition = currentPosition + toAdd;
                 //checking if player has moved below position 0
-                if (nextPosition < 0)
+                if (nextPosition < StartPosition)
                     currentPosition = 0;
                 else
                     currentPosition = nextPosition;
+                Console.WriteLine("Die roll number " + count + " Current position = " + currentPosition);
             }
             Console.WriteLine("Number Of Total Die Rolls = " + count);
             Console.WriteLine("Final Position of Player = " + currentPosition);
