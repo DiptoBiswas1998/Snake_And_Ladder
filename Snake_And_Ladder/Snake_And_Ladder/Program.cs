@@ -1,64 +1,34 @@
-﻿using System;
+﻿using Snake_And_Ladder;
+using System;
 using System.Runtime.Intrinsics.X86;
-
 namespace SnakeAndLadderSimulator
 {
     class Program
     {
-        public const int NoPlay = 0;
-        public const int Ladder = 1;
-        public const int Snake = 2;
         public const int WinPosition = 100;
-        public const int StartPosition = 0;
-        //Returns Output Of Die Roll
-        public static int rollTheDie()
-        {
-            Random random = new Random();
-            int numberOnDie = random.Next(1, 7);
-            return numberOnDie;
-        }
-        //Returns Increment Or Decrement to be Made with Current Position
-        public static int newPosition(int numberOnDie)
-        {
-            int toAdd = 0;
-            Random random = new Random();
-            int toMove = random.Next(0, 3);
-            switch (toMove)
-            {
-                case NoPlay:
-                    break;
-                case Ladder:
-                    toAdd = numberOnDie;
-                    break;
-                case Snake:
-                    toAdd = -numberOnDie;
-                    break;
-            }
-            return toAdd;
-        }
         static void Main(string[] args)
         {
-            int currentPosition = 0, nextPosition;
-            int count = 0;
-            while (currentPosition < WinPosition)
+            Position Player1 = new Position();
+            Position Player2 = new Position();
+            while (Player1.currentPosition < WinPosition && Player2.currentPosition < WinPosition)
             {
-                int numberOnDie = rollTheDie();
-                count++;
-                int toAdd = newPosition(numberOnDie);
-                //checking if next position will exceed 100
-                if (currentPosition + toAdd > WinPosition)
-                    nextPosition = currentPosition;
-                else
-                    nextPosition = currentPosition + toAdd;
-                //checking if player has moved below position 0
-                if (nextPosition < StartPosition)
-                    currentPosition = 0;
-                else
-                    currentPosition = nextPosition;
-                Console.WriteLine("Die roll number " + count + " Current position = " + currentPosition);
+                Player1.PlayTurn();
+                Console.WriteLine("Player 1 Position: " + Player1.currentPosition);
+                Player2.PlayTurn();
+                Console.WriteLine("Player 2 Position: " + Player2.currentPosition);
             }
-            Console.WriteLine("Number Of Total Die Rolls = " + count);
-            Console.WriteLine("Final Position of Player = " + currentPosition);
+            if(Player1.currentPosition == WinPosition)
+            {
+                Console.WriteLine("Player 1 Won");
+            }
+            else
+            {
+                Console.WriteLine("Player 2 Won");
+            }
+            Console.WriteLine("Number Of Total Die Rolls by Player 1 = " + Player1.count);
+            Console.WriteLine("Number Of Total Die Rolls by Player 2 = " + Player2.count);
+            Console.WriteLine("Final Position of Player 1 = " + Player1.currentPosition);
+            Console.WriteLine("Final Position of Player 2 = " + Player2.currentPosition);
         }
     }
 }
